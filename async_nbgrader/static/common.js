@@ -1,15 +1,3 @@
-// define(function(require) {
-//     var $ = require('jquery');
-//     // var Jupyter = require('base/js/namespace');
-
-//    function load() {
-//         $('.page-header h1').text('Rupesh')
-//     }
-//     return {
-//         load_ipython_extension: load
-//     };
-// });
-
 var logoSvg = `
 <svg width="110" height="110" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="440" height="440" fill="white" />
