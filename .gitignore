@@ -56,7 +56,6 @@ target/
 # Coverage files
 .coverage.*
 .selenium.screenshot.png
-async_nbgrader/tests/
 
 
 

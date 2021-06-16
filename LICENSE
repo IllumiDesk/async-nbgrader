@@ -1,0 +1,9 @@
+# nbgrader
+
+A jupyter extension which adds to the default nbgrader package
+
+## Contributing
+Please see the [contributing guidelines and documentation](https://nbgrader.readthedocs.io/en/latest/contributor_guide/overview.html).
+
+If you want to develop features for async_nbgrader, please follow the
+[development installation instructions](https://nbgrader.readthedocs.io/en/latest/contributor_guide/installation_developer.html) (Replace nbgrader with async_nbgrader).
