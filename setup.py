@@ -16,7 +16,8 @@ setup_args = dict(
         "notebook>=4.2",
         "nbgrader>=0.6.2",
         "apscheduler==3.7.0",
-    ]
+    ],
+    include_package_data=True
 )
 
 if __name__ == "__main__":
