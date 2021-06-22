@@ -7,8 +7,8 @@ def _jupyter_nbextension_paths():
         dict(
             section="common",
             src="static",
-            dest="static",
-            require="static/common"
+            dest="async_nbgrader/static",
+            require="async_nbgrader/static/common"
         ),
     ]
 
