@@ -33,22 +33,8 @@ class AsyncAutogradeHandler(AutogradeHandler):
         )
 
 
-class FormgraderStaticHandler(IPythonHandler):
-    def get(self):
-        # this is a hack to override text in formgrader, we are appending our JS module to a module imported in formgrader
-        original_data = pkgutil.get_data("nbgrader", "server_extensions/formgrader/static/js/utils.js").decode("utf-8")
-        common_js = pkgutil.get_data(__name__, "static/common.js").decode("utf-8")
-        self.write(original_data)
-        self.write(common_js)
-        self.set_header('Content-Type', 'application/javascript')
-        self.finish()
-
 handlers = [
     (r"/formgrader/api/submission/([^/]+)/([^/]+)/autograde", AsyncAutogradeHandler),
-]
-
-static_handlers = [
-    (r"/formgrader/static/js/utils.js$", FormgraderStaticHandler),
 ]
 
 def rewrite(nbapp, x):
