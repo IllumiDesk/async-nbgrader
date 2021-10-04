@@ -1,6 +1,7 @@
 import csv
 
 from traitlets import Unicode
+from nbgrader.api import MissingEntry
 from nbgrader.plugins import BasePlugin
 
 class CustomExportPlugin(BasePlugin):
@@ -27,24 +28,23 @@ class CanvasCsvExportPlugin(CustomExportPlugin):
             csv_reader = csv.DictReader(csv_file)
             fields = csv_reader.fieldnames
             csv_writer = csv.DictWriter(op_csv_file, fields)
+            csv_writer.writeheader()
             for row in csv_reader:
-                if "Points Possible" in row['ID']:
+                if "Points Possible" in row['Student']:
                     self.log.info("Skipping second row")
                     csv_writer.writerow(row)
                     continue
                 self.log.info("Finding student with ID %s", row['ID'])
-                student = gradebook.find_student(row['ID'])
-                if student is None:
-                    csv_writer.writerow(row)
-                    self.log.info("Unable to find student with ID %s", row['ID'])
-                    continue
                 for column in fields:
                     if " (" not in column:
                         continue
                     assignment_name = column.split(" (")[0]
-                    self.log.info("Finding submission of Student %s for Assignment %s", student.id, assignment_name)
-                    submission = gradebook.find_submission(assignment_name, student.id)
-                    if submission is None:
+                    self.log.info("Finding submission of Student '%s' for Assignment '%s'", row['ID'], assignment_name)
+                    submission = None
+                    try:
+                        submission = gradebook.find_submission(assignment_name, row['ID'])
+                        row[column] = max(0.0, submission.score - submission.late_submission_penalty)
+                    except MissingEntry:
+                        self.log.info("Submission of Student '%s' for Assignment '%s' not found", row['ID'], assignment_name)
                         continue
-                    row[column] = max(0.0, submission.score - submission.late_submission_penalty)
                 csv_writer.writerow(row)

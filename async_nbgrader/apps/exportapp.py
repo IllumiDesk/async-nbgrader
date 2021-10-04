@@ -10,7 +10,7 @@ aliases = {
     'log-level' : 'Application.log_level',
     'db': 'CourseDirectory.db_url',
     'to' : 'CanvasCsvExportPlugin.to',
-    'canvas_export' : 'CanvasCsvExportPlugin.canvas_export',
+    'canvas_import' : 'CanvasCsvExportPlugin.canvas_import',
     'exporter': 'ExportApp.plugin_class',
     'assignment' : 'CanvasCsvExportPlugin.assignment',
     'student': 'CanvasCsvExportPlugin.student',
@@ -30,6 +30,8 @@ class ExportApp(BaseExportApp):
         klass=CustomExportPlugin,
         help="The plugin class for exporting the grades."
     ).tag(config=True)
+
+    plugin_inst = Instance(CustomExportPlugin).tag(config=False)
 
     @default("classes")
     def _classes_default(self):

@@ -10,7 +10,7 @@ from traitlets import default
 from traitlets.config.application import catch_config_error
 from jupyter_core.application import NoStart
 
-from nbgrader import NbGraderApp
+from nbgrader.apps import NbGraderApp
 
 from .exportapp import ExportApp
 
