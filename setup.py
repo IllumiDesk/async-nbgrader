@@ -11,6 +11,9 @@ setup_args = dict(
     name=name,
     version=version_ns['__version__'],
     packages=find_packages(),
+    entry_points={
+        'console_scripts': ['async_nbgrader=async_nbgrader.apps.async_nbgraderapp:main']
+    },
     install_requires=[
         "jupyter_core==4.7.1",
         "notebook==6.4.2",

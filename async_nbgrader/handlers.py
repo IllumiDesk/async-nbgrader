@@ -44,7 +44,7 @@ def rewrite(nbapp, x):
 
 def load_jupyter_server_extension(nbapp: NotebookApp):
     """Start background processor"""
-    if os.environ.get("NBGRADER_ASYNC_MODE", "true") == "true":
+    if os.environ.get("NBGRADER_ASYNC_MODE", "false") == "true":
         nbapp.log.info("Starting background processor for nbgrader serverextension")
         nbapp.web_app.add_handlers(".*$", [rewrite(nbapp, x) for x in handlers])
         scheduler.start()
