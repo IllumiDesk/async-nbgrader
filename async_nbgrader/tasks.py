@@ -1,23 +1,19 @@
-from nbgrader.apps import AutogradeApp
-from nbgrader.coursedir import CourseDirectory
+import traceback
 
+from .helpers import get_nbgrader_api
 from .scheduler import scheduler_logger
 
 
-def autograde_assignment(course_id, assignment_id=None, student_id=None):
-    job_info = (
-        f"course_id={course_id}, assignment_id={assignment_id}, student_id={student_id}"
-    )
+def autograde_assignment(
+    notebook_dir, course_id=None, assignment_id=None, student_id=None
+):
+    job_info = f"notebook_dir={notebook_dir}, course_id = {course_id}, assignment_id={assignment_id}, student_id={student_id}"
     scheduler_logger.info(f"Initialize autograding app for {job_info}")
-    app = AutogradeApp()
-    app.log = scheduler_logger
-    app.coursedir = CourseDirectory()
-    if course_id is not None:
-        app.coursedir.course_id = course_id
-    if assignment_id is not None:
-        app.coursedir.assignment_id = assignment_id
-    if student_id is not None:
-        app.coursedir.student_id = student_id
-    scheduler_logger.info(f"Starting autograding for {job_info}")
-    app.start()
-    scheduler_logger.info(f"Completed autograding for {job_info}")
+    try:
+        api = get_nbgrader_api(notebook_dir, course_id)
+        api.log = scheduler_logger
+        scheduler_logger.info(f"Starting autograding for {job_info}")
+        api.autograde(assignment_id, student_id)
+        scheduler_logger.info(f"Completed autograding for {job_info}")
+    except Exception as e:
+        scheduler_logger.error(traceback.format_exc())
