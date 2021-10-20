@@ -9,7 +9,7 @@ from notebook.notebookapp import NotebookApp
 from notebook.utils import url_path_join as ujoin
 
 from .scheduler import scheduler
-from .tasks import autograde_assignment
+# from .tasks import autograde_assignment
 
 
 class AsyncAutogradeHandler(AutogradeHandler):
@@ -17,22 +17,26 @@ class AsyncAutogradeHandler(AutogradeHandler):
     @check_xsrf
     @check_notebook_dir
     def post(self, assignment_id, student_id):
-        scheduler.add_job(
-            autograde_assignment,
-            "date",
-            args=[
-                self.settings["notebook_dir"],
-                self.api.course_id,
-                assignment_id,
-                student_id,
-            ],
-        )
+        # scheduler.add_job(
+        #     autograde_assignment,
+        #     "date",
+        #     args=[
+        #         self.settings["notebook_dir"],
+        #         self.api.course_id,
+        #         assignment_id,
+        #         student_id,
+        #     ],
+        # )
         self.write(
             json.dumps(
                 {
                     "success": True,
                     "queued": True,
                     "message": "Submission Autograding queued",
+                    "notebook_dir": self.settings["notebook_dir"],
+                    "course_id": self.api.course_id,
+                    "assignment_id": assignment_id,
+                    "student_id": student_id,
                 }
             )
         )
