@@ -26,6 +26,9 @@ def get_assignment_dir_config(notebook_dir):
     lister = ExchangeList(config=config)
     assignment_dir = lister.assignment_dir
 
+    if assignment_dir == ".":
+        assignment_dir = notebook_dir + "/.jupyter"
+
     # now cd to the full assignment directory and load the config again
     with chdir(assignment_dir):
         app = NbGrader()
@@ -52,7 +55,7 @@ def get_nbgrader_api(notebook_dir, course_id=None):
             config.CourseDirectory.course_id = course_id
 
         coursedir = CourseDirectory(config=config)
+        print("db_url='" + coursedir.db_url + "'")
         authenticator = Authenticator(config=config)
         api = NbGraderAPI(coursedir, authenticator)
-        api.log_level = 0
         return api
