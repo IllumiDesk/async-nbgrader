@@ -62,9 +62,7 @@ class ProcessMessageApp(NbGrader):
         os.environ["JUPYTER_CONFIG_DIR"] = notebook_dir + "/.jupyter"
         try:
             with chdir(notebook_dir + "/" + course_id):
-                self.log.info("Calling get_nbgrader_api")
                 api = get_nbgrader_api(notebook_dir, course_id)
-                self.log.info("Got api")
                 api.log = self.log
                 api.log_level = 0
                 if action == "autograde":

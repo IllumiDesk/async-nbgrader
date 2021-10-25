@@ -55,7 +55,6 @@ def get_nbgrader_api(notebook_dir, course_id=None):
             config.CourseDirectory.course_id = course_id
 
         coursedir = CourseDirectory(config=config)
-        print("db_url='" + coursedir.db_url + "'")
         authenticator = Authenticator(config=config)
         api = NbGraderAPI(coursedir, authenticator)
         return api
