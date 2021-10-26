@@ -7,7 +7,9 @@ import traceback
 
 from traitlets import default
 from nbgrader.apps.baseapp import NbGrader
-from ..helpers import chdir, get_nbgrader_api
+from ..helpers import chdir
+from ..helpers import get_nbgrader_api
+
 
 aliases = {
     "log-level": "Application.log_level",
@@ -21,6 +23,7 @@ JUPYTERHUB_BASE_URL = os.environ.get("JUPYTERHUB_BASE_URL") or "/"
 
 
 class ProcessMessageApp(NbGrader):
+    """App to handle amqp messages from Argo"""
 
     name = "async_nbgrader-process-message"
 
@@ -33,6 +36,7 @@ class ProcessMessageApp(NbGrader):
         return classes
 
     def start(self):
+        """Handler for processing mesage, message is passed as first argument, it is received in self.extra_args[0]"""
         super(ProcessMessageApp, self).start()
         if len(self.extra_args) == 0 or self.extra_args[0] == "":
             self.fail("message is missing")
