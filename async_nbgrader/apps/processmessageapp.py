@@ -73,6 +73,7 @@ class ProcessMessageApp(NbGrader):
                     assignment_id = body.get("assignment_id")
                     student_id = body.get("student_id")
                     self.log.info("Running Autograde")
+                    self.log.info("DB url = " + api.coursedir.db_url)
                     api.autograde(assignment_id, student_id)
                     self.log.info("Autograde Finished")
                 else:

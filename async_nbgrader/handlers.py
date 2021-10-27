@@ -16,7 +16,7 @@ class AsyncAutogradeHandler(AutogradeHandler):
     @web.authenticated
     @check_xsrf
     @check_notebook_dir
-    def post(self, assignment_id: str, student_id: str) -> str:
+    def post(self, assignment_id: str, student_id: str) -> None:
         """Handler for processing autograding request, queues autograding task in amqp"""
         connection = pika.BlockingConnection(
             pika.ConnectionParameters("argo-rabbitmq-service")
@@ -34,7 +34,7 @@ class AsyncAutogradeHandler(AutogradeHandler):
                 "assignment_id": assignment_id,
                 "student_id": student_id,
                 "NB_UID": os.environ.get("NB_UID"),
-                "NB_GID": os.environ.get("100"),
+                "NB_GID": os.environ.get("NB_GID"),
                 "JUPYTERHUB_API_TOKEN": os.environ.get("JUPYTERHUB_API_TOKEN"),
             }
         )
