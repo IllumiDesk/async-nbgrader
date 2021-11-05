@@ -11,12 +11,16 @@ setup_args = dict(
     name=name,
     version=version_ns['__version__'],
     packages=find_packages(),
+    entry_points={
+        'console_scripts': ['async_nbgrader=async_nbgrader.apps.async_nbgraderapp:main']
+    },
     install_requires=[
-        "jupyter_core",
-        "notebook>=4.2",
-        "nbgrader>=0.6.2",
+        "jupyter_core==4.7.1",
+        "notebook==6.4.2",
+        "nbgrader==0.6.2",
         "apscheduler==3.7.0",
-    ]
+    ],
+    include_package_data=True
 )
 
 if __name__ == "__main__":

@@ -3,14 +3,7 @@ from .handlers import load_jupyter_server_extension
 
 
 def _jupyter_nbextension_paths():
-    return [
-        dict(
-            section="common",
-            src="static",
-            dest="static",
-            require="static/common"
-        ),
-    ]
+    return []
 
 def _jupyter_server_extension_paths():
     return [
