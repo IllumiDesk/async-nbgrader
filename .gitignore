@@ -57,20 +57,21 @@ target/
 .coverage.*
 .selenium.screenshot.png
 
-
-
+# Package files
 conda-bld
-gh_api.sqlite
 MANIFEST
 README
 .pytest_cache
 
+# Virtuale envs
+env/
 venv/
 
-gradebook.db
-.buildconfig
+# Misc
 *~
-.vscode/
-package-lock.json
+.buildconfig
 .goutputstream*
-
+.vscode/
+*.sqlite
+gradebook.db
+package-lock.json

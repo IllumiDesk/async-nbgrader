@@ -1,4 +1,5 @@
-from .export import CustomExportPlugin, CanvasCsvExportPlugin
+from .export import CanvasCsvExportPlugin
+from .export import CustomExportPlugin
 
 __all__ = [
     "CanvasCsvExportPlugin",
