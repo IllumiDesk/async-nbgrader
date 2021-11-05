@@ -31,7 +31,7 @@ class AsyncNbGraderApp(NbGraderApp):
                 """
                 Handles base64 encoded messages
                 """
-            ).strip()
+            ).strip(),
         ),
     )
 

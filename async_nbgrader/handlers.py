@@ -16,11 +16,16 @@ class AsyncAutogradeHandler(AutogradeHandler):
     @check_notebook_dir
     def post(self, assignment_id: str, student_id: str) -> None:
         """Handler for processing autograding request, queues autograding task in amqp"""
-        connection = pika.BlockingConnection(pika.ConnectionParameters("argo-rabbitmq-service"))
+        connection = pika.BlockingConnection(
+            pika.ConnectionParameters("argo-rabbitmq-service"),
+        )
         channel = connection.channel()
         namespace = os.environ.get("NAMESPACE")
         channel.exchange_declare(
-            exchange=namespace, exchange_type="topic", passive=False, durable=True,
+            exchange=namespace,
+            exchange_type="topic",
+            passive=False,
+            durable=True,
         )
         body = json.dumps(
             {
@@ -35,7 +40,9 @@ class AsyncAutogradeHandler(AutogradeHandler):
             }
         )
         channel.basic_publish(
-            exchange=namespace, routing_key="autograde_events", body=body,
+            exchange=namespace,
+            routing_key="autograde_events",
+            body=body,
         )
         self.write(
             json.dumps(
