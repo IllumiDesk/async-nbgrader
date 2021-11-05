@@ -40,6 +40,14 @@ This package leverages the same Python API available with `nbgrader`. Therefore 
 nbgrader autograde "<assignment-name>"
 ```
 
+### Toggle to use the standard syncronous autograder
+
+This package includes the option to set an environment variable to toggle whether to use the `asyncronous` version of the autograder or the `syncrononous` version (default is `async`):
+
+| Environment Variable | Description | Default |
+| --- | --- | --- |
+| NBGRADER_ASYNC_MODE | Used to set whether the autograder runs syncronous or asyncronous mode | "true"  |
+
 ## Export Grades as a CSV
 
 Follow the steps below to export grades from the `nbgrader` database to a `*.csv` (default is `canvas_grades.csv`) file:
