@@ -1,28 +1,30 @@
 # Async nbgrader
 
-A jupyter extension which adds async capabilities to nbgrader's auto-grading service.
+A Jupyter Notebook server extension which adds:
+
+- Async capabilities to `nbgrader`'s auto-grading service.
+- Export grades as a CSV file for the `Canvas LMS`
 
 ## Installation
 
-1. Install this setup directly from GitHub using `pip install`:
+1. Clone this repo and install the pacakage with `pip`:
 
 ```bash
-pip install git+ssh://git@github.com/IllumiDesk/async-nbgrader.git
+git clone https://github.com/illumidesk/async-nbgrader
 cd async-nbgrader
+pip install -e .
 ```
 
-> **NOTE**: future versions will publish the `async-nbgrader` package to PyPi.
-
-2. Create and activate your virtual environment:
+1. Create and activate your virtual environment:
 
 ```bash
 virtualenv -p python3 venv
 source venv/bin/activate
 ```
 
-3. Install and Activate Extensions
+1. Install and Activate Extensions
 
-Install and activate all extensions (assignment list, create assignment, formgrader, and validate):
+Install and activate client and server extensions:
 
 ```bash
 jupyter nbextension install --sys-prefix --py async_nbgrader --overwrite
@@ -32,7 +34,40 @@ jupyter serverextension enable --sys-prefix --py async_nbgrader
 
 ## Run the Auto-Grader
 
-This package leverages the same Python API available with `nbgrader`. Therefore no additional changes are required to run the auto-grader for submitting assignments.
+This package leverages the same Python API available with `nbgrader`. Therefore no additional changes are required to run the auto-grader. For example, once you have collected assignments, run the following command to auto-grade assignments with the `async-nbgrader` server extension:
+
+```bash
+nbgrader autograde "<assignment-name>"
+```
+
+## Export Grades as a CSV
+
+Follow the steps below to export grades from the `nbgrader` database to a `*.csv` (default is `canvas_grades.csv`) file:
+
+1. Export the Canvas LMS grades as a CSV file from your Course's gradebook by following [these instructions](https://community.canvaslms.com/t5/Instructor-Guide/How-do-I-export-grades-in-the-Gradebook/ta-p/809).
+
+1. Copy the CSV file to a location where the `ild` command has access to the exported CSV. (The `ild` command is used to export grades from the `nbgrader` database).
+
+1. Run the `ild export` command to export grades from the `nbgrader` database:
+
+```bash
+ild export --canvas_import=/path/to/my/grades-from-canvas.csv --canvas_export=/path/to/my/grades-for-canvas.csv
+```
+
+By default, the `ild export` command uses the `canvas.csv` as the file to import grades from and the `canvas_grades.csv` to export grades to. You can override these values with the `--canvas_import` and the `--canvas_export` flags to designate the path and file name for the CSV file to import and export, respectively.
+
+The `ild` command is a wrapper for the `nbgrader` command. Therefore all other flags included with the `nbgrader` CLI are available with the `ild` command, such as the `--debug` flag.
+
+If successful, the output in the terminal should look similar to:
+
+```bash
+[ExportApp | WARNING] No nbgrader_config.py file found (rerun with --debug to see where nbgrader is looking)
+[ExportApp | INFO] Using exporter: CanvasCsvExportPlugin
+[ExportApp | INFO] Exporting grades to canvas_grades.csv
+[ExportApp | INFO] Skipping second row
+[ExportApp | INFO] Finding student with ID 358
+[ExportApp | INFO] Finding submission of Student '358' for Assignment 'postgres-migration-test'
+```
 
 ## Contributing
 

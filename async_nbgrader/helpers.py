@@ -1,6 +1,8 @@
 import contextlib
 import os
 
+from typing import Dict
+
 from nbgrader.auth import Authenticator
 from nbgrader.apps import NbGrader
 from nbgrader.apps.api import NbGraderAPI
@@ -10,7 +12,12 @@ from jupyter_core.paths import jupyter_config_path
 
 
 @contextlib.contextmanager
-def chdir(dirname):
+def chdir(dirname: str) -> None:
+    """Utility function to change directories.
+
+    Args:
+        dirname (str): the directory name to change into.
+    """
     currdir = os.getcwd()
     os.chdir(dirname)
     yield
@@ -18,7 +25,15 @@ def chdir(dirname):
 
 
 @contextlib.contextmanager
-def get_assignment_dir_config(notebook_dir):
+def get_assignment_dir_config(notebook_dir: str) -> Dict[str, Dict[str, str]]:
+    """[summary]
+
+    Args:
+        notebook_dir (str): The assignment directory configuration.
+
+    Returns:
+        Dict[str, Dict[str, str]]: the application configuration.
+    """
     # first get the exchange assignment directory
     with chdir(notebook_dir):
         config = load_config()
@@ -35,7 +50,12 @@ def get_assignment_dir_config(notebook_dir):
         yield app.config
 
 
-def load_config():
+def load_config() -> Dict[str, Dict[str, str]]:
+    """Method to load the application's configuration.
+
+    Returns:
+        Iterator[Dict[str, Dict[str, str]]]: The application configuration.
+    """
     paths = jupyter_config_path()
     paths.insert(0, os.getcwd())
 
@@ -46,7 +66,17 @@ def load_config():
     return app.config
 
 
-def get_nbgrader_api(notebook_dir, course_id=None):
+def get_nbgrader_api(notebook_dir: str, course_id: str = None) -> NbGraderAPI:
+    """Returns an instance of the NbraderAPI based on the notebook directory and
+    course_id.
+
+    Args:
+        notebook_dir ([str]): the notebook directory path and filename.
+        course_id ([str], optional): The course _id, defaults to None.
+
+    Returns:
+        NbGraderAPI: and instance of the nbrader API.
+    """
     with get_assignment_dir_config(notebook_dir) as config:
         if course_id:
             config.CourseDirectory.course_id = course_id
