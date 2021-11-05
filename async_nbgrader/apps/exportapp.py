@@ -1,34 +1,41 @@
 # coding: utf-8
 
-from traitlets import Type, Instance, default
-from nbgrader.apps import ExportApp as BaseExportApp
-from nbgrader.coursedir import CourseDirectory
-from ..plugins import CustomExportPlugin, CanvasCsvExportPlugin
 from nbgrader.api import Gradebook
+from nbgrader.apps import ExportApp as BaseExportApp
+from traitlets import Instance
+from traitlets import Type
+from traitlets import default
+
+from ..plugins import CanvasCsvExportPlugin
+from ..plugins import CustomExportPlugin
 
 aliases = {
-    'log-level' : 'Application.log_level',
-    'db': 'CourseDirectory.db_url',
-    'to' : 'CanvasCsvExportPlugin.to',
-    'canvas_import' : 'CanvasCsvExportPlugin.canvas_import',
-    'exporter': 'ExportApp.plugin_class',
-    'assignment' : 'CanvasCsvExportPlugin.assignment',
-    'student': 'CanvasCsvExportPlugin.student',
-    'course': 'CourseDirectory.course_id'
+    "log-level": "Application.log_level",
+    "db": "CourseDirectory.db_url",
+    "to": "CanvasCsvExportPlugin.to",
+    "canvas_import": "CanvasCsvExportPlugin.canvas_import",
+    "exporter": "ExportApp.plugin_class",
+    "assignment": "CanvasCsvExportPlugin.assignment",
+    "student": "CanvasCsvExportPlugin.student",
+    "course": "CourseDirectory.course_id",
 }
+
 flags = {}
 
 
 class ExportApp(BaseExportApp):
+    """Custom nbgrader export app to export grades from a Canvas LMS
+    course.
+    """
 
-    name = u'async_nbgrader-export'
+    name = "async_nbgrader-export"
 
     aliases = aliases
 
     plugin_class = Type(
         CanvasCsvExportPlugin,
         klass=CustomExportPlugin,
-        help="The plugin class for exporting the grades."
+        help="The plugin class for exporting the grades.",
     ).tag(config=True)
 
     plugin_inst = Instance(CustomExportPlugin).tag(config=False)

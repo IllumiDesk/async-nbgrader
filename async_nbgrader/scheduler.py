@@ -7,7 +7,9 @@ from apscheduler.schedulers.tornado import TornadoScheduler
 
 jobstores = {"default": SQLAlchemyJobStore(url="sqlite:///jobs.sqlite")}
 
-executors = {"default": ThreadPoolExecutor(int(os.environ.get('NBGRADER_THREADS', '1')))}
+executors = {
+    "default": ThreadPoolExecutor(int(os.environ.get("NBGRADER_THREADS", "1")))
+}
 
 job_defaults = {
     "misfire_grace_time": None,  # to queue jobs which are triggered but no thread is available to run them,
