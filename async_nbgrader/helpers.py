@@ -1,14 +1,13 @@
 import contextlib
 import os
-
 from typing import Dict
 
-from nbgrader.auth import Authenticator
+from jupyter_core.paths import jupyter_config_path
 from nbgrader.apps import NbGrader
 from nbgrader.apps.api import NbGraderAPI
+from nbgrader.auth import Authenticator
 from nbgrader.coursedir import CourseDirectory
 from nbgrader.exchange import ExchangeList
-from jupyter_core.paths import jupyter_config_path
 
 
 @contextlib.contextmanager

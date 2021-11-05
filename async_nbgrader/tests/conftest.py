@@ -1,1 +1,1 @@
-from nbgrader.tests.nbextensions.conftest import *
+from nbgrader.tests.nbextensions.conftest import *  # noqa: F401

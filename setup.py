@@ -1,5 +1,7 @@
 import os
-from setuptools import setup, find_packages
+
+from setuptools import find_packages
+from setuptools import setup
 
 name = "async_nbgrader"
 here = os.path.abspath(os.path.dirname(__file__))

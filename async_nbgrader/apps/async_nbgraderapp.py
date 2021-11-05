@@ -3,10 +3,6 @@
 
 from textwrap import dedent
 
-from traitlets import default
-from traitlets.config.application import catch_config_error
-from jupyter_core.application import NoStart
-
 from nbgrader.apps import NbGraderApp
 
 from .exportapp import ExportApp
@@ -17,7 +13,7 @@ class AsyncNbGraderApp(NbGraderApp):
     autograder.
     """
 
-    name = u"async_nbgrader-autograder"
+    name = "async_nbgrader-autograder"
 
     subcommands = dict(
         export=(

@@ -6,8 +6,8 @@ from .scheduler import scheduler_logger
 
 def autograde_assignment(
     notebook_dir: str,
-    course_id:str = None,
-    assignment_id:str = None,
+    course_id: str = None,
+    assignment_id: str = None,
     student_id: str = None,
 ):
     """Autograde an assignment asyncronously.

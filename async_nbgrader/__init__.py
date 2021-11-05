@@ -1,5 +1,5 @@
 """Tornado handlers for nbgrader background service."""
-from .handlers import load_jupyter_server_extension
+from .handlers import load_jupyter_server_extension  # noqa: F401
 
 
 def _jupyter_nbextension_paths():

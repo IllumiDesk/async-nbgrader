@@ -1,13 +1,12 @@
 import json
 import os
 
-from tornado import web
-
 from nbgrader.server_extensions.formgrader.apihandlers import AutogradeHandler
 from nbgrader.server_extensions.formgrader.base import check_notebook_dir
 from nbgrader.server_extensions.formgrader.base import check_xsrf
 from notebook.notebookapp import NotebookApp
 from notebook.utils import url_path_join as ujoin
+from tornado import web
 
 from .scheduler import scheduler
 from .tasks import autograde_assignment

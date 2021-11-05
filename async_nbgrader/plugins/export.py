@@ -1,24 +1,24 @@
 import csv
 
-from traitlets import Unicode
-
-from nbgrader.plugins import BasePlugin
 from nbgrader.api import Gradebook
 from nbgrader.api import MissingEntry
+from nbgrader.plugins import BasePlugin
+from traitlets import Unicode
 
 
 class CustomExportPlugin(BasePlugin):
     """Custom nbgrader export plugin that exports grades from
     the nbgrader database to the Canvas LMS CSV format.
     """
+
     canvas_export = Unicode(
         "",
-        help="The destination path and file name for the Canvas LMS course's grades."
+        help="The destination path and file name for the Canvas LMS course's grades.",
     ).tag(config=True)
 
     canvas_import = Unicode(
         "",
-        help="The source path and file name of grades exported from the Canvas LMS course."
+        help="The source path and file name of grades exported from the Canvas LMS course.",
     ).tag(config=True)
 
 

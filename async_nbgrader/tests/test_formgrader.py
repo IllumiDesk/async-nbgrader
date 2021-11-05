@@ -1,17 +1,10 @@
-import pytest
 import sys
 
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-
+import pytest
 from nbgrader.tests.nbextensions import formgrade_utils as utils
-from nbgrader.tests.nbextensions.test_formgrader import browser
-from nbgrader.tests.nbextensions.test_formgrader import gradebook
-from nbgrader.tests.nbextensions.test_formgrader import nbserver
-from nbgrader.tests.nbextensions.test_formgrader import fake_home_dir
-from nbgrader.tests.nbextensions.test_formgrader import monkeypatch_module
-
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 if sys.platform == "win32":
     tz = "Coordinated Universal Time"

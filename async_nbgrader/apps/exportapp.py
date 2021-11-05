@@ -1,16 +1,13 @@
 # coding: utf-8
 
-from traitlets import default
+from nbgrader.api import Gradebook
+from nbgrader.apps import ExportApp as BaseExportApp
 from traitlets import Instance
 from traitlets import Type
+from traitlets import default
 
-from nbgrader.apps import ExportApp as BaseExportApp
-from nbgrader.api import Gradebook
-from nbgrader.coursedir import CourseDirectory
-
-from ..plugins import CustomExportPlugin
 from ..plugins import CanvasCsvExportPlugin
-
+from ..plugins import CustomExportPlugin
 
 aliases = {
     "log-level": "Application.log_level",
@@ -31,7 +28,7 @@ class ExportApp(BaseExportApp):
     course.
     """
 
-    name = u"async_nbgrader-export"
+    name = "async_nbgrader-export"
 
     aliases = aliases
 
