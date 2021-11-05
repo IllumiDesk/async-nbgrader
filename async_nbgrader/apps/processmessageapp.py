@@ -81,3 +81,4 @@ class ProcessMessageApp(NbGrader):
         except Exception as e:
             self.log.info("Error caught")
             self.log.error(traceback.format_exc())
+            self.fail("failure in processing")
