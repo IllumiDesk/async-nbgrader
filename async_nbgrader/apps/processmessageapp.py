@@ -7,12 +7,14 @@ import traceback
 
 from traitlets import default
 from nbgrader.apps.baseapp import NbGrader
+from nbgrader.coursedir import CourseDirectory
 from ..helpers import chdir
 from ..helpers import get_nbgrader_api
 
 
 aliases = {
     "log-level": "Application.log_level",
+    "db": "CourseDirectory.db_url",
 }
 flags = {}
 

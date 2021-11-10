@@ -13,6 +13,11 @@ setup_args = dict(
     name=name,
     version=version_ns["__version__"],
     packages=find_packages(),
+    package_data={
+        'async_nbgrader.tests': [
+            'apps/files/*',
+        ]
+    },
     entry_points={
         "console_scripts": ["ild=async_nbgrader.apps.async_nbgraderapp:main"]
     },
@@ -21,6 +26,10 @@ setup_args = dict(
         "notebook>=6.4.2",
         "nbgrader>=0.6.2",
         "pika>=1.2.0",
+    ],
+    tests_require=[
+        "pytest-rabbitmq>=2.2.0",
+        "pytest-env>=0.6.2",
     ],
     include_package_data=True,
 )
