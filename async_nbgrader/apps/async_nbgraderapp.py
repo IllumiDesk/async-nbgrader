@@ -6,6 +6,7 @@ from textwrap import dedent
 from nbgrader.apps import NbGraderApp
 
 from .exportapp import ExportApp
+from .processmessageapp import ProcessMessageApp
 
 
 class AsyncNbGraderApp(NbGraderApp):
@@ -21,6 +22,14 @@ class AsyncNbGraderApp(NbGraderApp):
             dedent(
                 """
                 Export grades from the database to another format.
+                """
+            ).strip(),
+        ),
+        process_message=(
+            ProcessMessageApp,
+            dedent(
+                """
+                Handles base64 encoded messages
                 """
             ).strip(),
         ),

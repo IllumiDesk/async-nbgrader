@@ -2,6 +2,9 @@ import sys
 
 import pytest
 from nbgrader.tests.nbextensions import formgrade_utils as utils
+from nbgrader.tests.nbextensions.test_formgrader import browser, fake_home_dir, gradebook, monkeypatch_module, nbserver
+from pytest_rabbitmq.factories import rabbitmq_proc
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -28,7 +31,7 @@ def test_before_autograde_assignment(browser, port, gradebook):
 
 
 @pytest.mark.formgrader
-def test_autograde_assignment(browser, port, gradebook):
+def test_autograde_assignment(browser, port, gradebook, rabbitmq_proc):
     utils._load_gradebook_page(browser, port, "manage_submissions/Problem Set 1")
 
     # click on the autograde button
