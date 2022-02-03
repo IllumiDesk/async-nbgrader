@@ -96,7 +96,9 @@ def load_jupyter_server_extension(nbapp: NotebookApp) -> None:
       nbapp (NotebookApp): The Jupyter Notebook application instance.
     """
     if os.environ.get("NBGRADER_ASYNC_MODE", "true") == "true":
-        nbapp.log.info("Starting background processor for nbgrader serverextension")
         nbapp.web_app.add_handlers(".*$", [rewrite(nbapp, x) for x in handlers])
+        if os.environ.get("ARGO_ENABLED") != "true":
+            nbapp.log.info("Starting background processor for nbgrader serverextension")
+            scheduler.start()
     else:
         nbapp.log.info("Skipping background processor for nbgrader serverextension")
