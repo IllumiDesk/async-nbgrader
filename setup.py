@@ -25,6 +25,7 @@ setup_args = dict(
         "jupyter_core>=4.7.1",
         "notebook>=6.4.2",
         "nbgrader>=0.6.2",
+        "apscheduler>=3.7.0",
         "pika>=1.2.0",
     ],
     tests_require=[
